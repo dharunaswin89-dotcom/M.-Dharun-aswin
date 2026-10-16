@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aswin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;800&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<!-- EDIT: every [bracketed] phrase is a placeholder for your own words. Search for "[" and replace. -->
+<style>
+:root{--ink:#050505;--bone:#e9e4d6;--dim:#8d887b;--amber:#f2a900;--bar:7vh;
+--ease:cubic-bezier(.22,.8,.2,1);--serif:'Cinzel',Georgia,serif;--mono:'Courier Prime','Courier New',monospace}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{background:var(--ink);color:var(--bone);font:400 1.05rem/1.7 var(--mono);padding:var(--bar) 0;overflow-x:hidden}
+::selection{background:var(--amber);color:var(--ink)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+/* letterbox */
+.bar{position:fixed;left:0;right:0;height:var(--bar);background:#000;z-index:50;display:flex;align-items:center;padding:0 1.25rem;font-size:.85rem;color:var(--dim);transition:height 1s var(--ease)}
+.bar.t{top:0}.bar.b{bottom:0;justify-content:center;color:var(--bone);font-style:italic;padding-bottom:env(safe-area-inset-bottom)}
+.bar.t{justify-content:space-between;padding-top:env(safe-area-inset-top)}
+.bar b{font-weight:400;color:var(--amber)}
+body.intro .bar{height:50vh}
+#sub{transition:opacity .4s}
+/* opening */
+#open{position:fixed;inset:0;z-index:100;background:#000;display:grid;place-items:center;padding:2rem;transition:opacity .5s ease}
+#open p{font-size:clamp(1.1rem,4.6vw,1.8rem);max-width:22ch;line-height:1.5;min-height:3em}
+#open p::after{content:"";display:inline-block;width:.6ch;height:1.1em;background:var(--amber);vertical-align:-.15em;margin-left:2px;animation:bl .6s steps(1) infinite}
+#open.fade p{opacity:0;transition:opacity .5s}
+#open.gone{opacity:0;pointer-events:none}
+#skip{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:101;background:none;border:1px solid var(--dim);color:var(--bone);font:inherit;font-size:.85rem;padding:.4rem .9rem;cursor:pointer}
+@keyframes bl{50%{opacity:0}}
+/* sections */
+section{padding:18vh 1.25rem 10vh;max-width:70rem;margin:0 auto;position:relative}
+h1{font:800 clamp(4.2rem,26vw,15rem);line-height:.82;letter-spacing:.02em;margin-left:-.04em}
+h2{font:500 clamp(1.7rem,6vw,3rem);line-height:1.1;letter-spacing:.14em;margin-bottom:2.2rem}
+#top{min-height:calc(100vh - 2*var(--bar));display:flex;flex-direction:column;justify-content:flex-end;padding-top:6vh}
+.mono{width:min(46vw,190px);margin-bottom:2rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tag{font-size:clamp(1.05rem,3.4vw,1.4rem);max-width:30ch;margin:2rem 0 1rem}
+.now{color:var(--dim);font-style:italic;margin-bottom:2.5rem}
+.now i{color:var(--amber)}
+.btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{font:700 1rem var(--mono);text-decoration:none;padding:.85rem 1.6rem;border:2px solid var(--bone);transition:background .3s var(--ease),color .3s var(--ease),transform .3s var(--ease)}
+.btn.p{background:var(--bone);color:var(--ink)}
+.btn:hover{background:var(--amber);border-color:var(--amber);color:var(--ink);transform:translateY(-3px)}
+/* credits */
+.row{display:grid;gap:.15rem 2rem;padding:1.1rem 0;border-top:1px solid #2a2a26}
+.row:last-child{border-bottom:1px solid #2a2a26}
+.row dt{color:var(--dim);font-style:italic}
+.row dd{font:500 1.35rem/1.3 var(--serif);letter-spacing:.06em}
+.row dd small{display:block;font:400 .9rem/1.5 var(--mono);color:var(--dim);letter-spacing:0;margin-top:.2rem}
+@media(min-width:720px){.row{grid-template-columns:1fr 1.4fr;align-items:baseline}.row dt{text-align:right}}
+.about p{max-width:60ch;margin-bottom:1.3rem}
+.about p:first-of-type::first-letter{font:800 4.2rem/.8 var(--serif);float:left;margin:.3rem .6rem 0 0;color:var(--amber)}
+@media(min-width:900px){.about{margin-left:18%}}
+/* tilt cards */
+.deck{display:grid;gap:1.6rem;perspective:900px}
+.card{background:var(--bone);color:var(--ink);padding:1.6rem;transform-style:preserve-3d;transition:transform .5s var(--ease);will-change:transform;touch-action:pan-y;position:relative}
+.card.on{transition:transform .08s linear}
+.card h3{font:800 1.5rem var(--serif);letter-spacing:.06em;margin-bottom:.6rem}
+.card li{margin:0 0 .4rem 1.1rem}
+.card .sp{position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 14px,transparent 14px 26px);opacity:.85}
+.card.a{margin-top:.8rem}
+.card.k{background:var(--amber)}
+.card.d{background:#000;color:var(--bone);border:2px solid var(--bone)}
+.card.d .sp{background:repeating-linear-gradient(90deg,var(--bone) 0 14px,transparent 14px 26px)}
+@media(min-width:900px){.deck{grid-template-columns:1.2fr 1fr 1.2fr;align-items:start}.card.k{margin-top:4rem}.card.d{margin-top:1.5rem}}
+.facts{columns:1;font-size:1.05rem}
+.facts p{break-inside:avoid;margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--amber)}
+@media(min-width:760px){.facts{columns:2;column-gap:3rem}}
+.mail{font:800 clamp(1.2rem,5.4vw,2.6rem) var(--serif);letter-spacing:.05em;word-break:break-all;display:inline-block;margin-bottom:1.5rem;text-decoration-color:var(--amber);text-underline-offset:.3em}
+.links{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:5rem}
+.end{text-align:center;color:var(--dim);font-style:italic;padding:2rem 0 4rem}
+/* easter egg */
+#egg{position:fixed;inset:0;z-index:200;background:var(--bone);color:var(--ink);display:none;place-items:center;text-align:center;font:800 clamp(6rem,40vw,22rem)/1 var(--serif)}
+#egg.on{display:grid}
+#egg small{display:block;font:700 1.1rem var(--mono);letter-spacing:.1em}
+#egg::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,transparent 30%,rgba(0,0,0,.35));pointer-events:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="intro">
+<div class="bar t"><span>Aswin, first cut</span><b id="rec">rec</b></div>
+<div class="bar b"><span id="sub">Opening credits</span></div>
+
+<div id="open" role="presentation"><p id="typed" aria-live="polite"></p></div>
+<button id="skip">Skip</button>
+
+<main>
+<section id="top" data-sub="Opening credits">
+  <svg class="mono" id="mono" viewBox="0 0 200 200" role="img" aria-label="Monogram letter A inside a film reel ring">
+    <circle cx="100" cy="100" r="92" fill="none" stroke="#e9e4d6" stroke-width="3"/>
+    <circle cx="100" cy="100" r="78" fill="none" stroke="#f2a900" stroke-width="10" stroke-dasharray="6 9"/>
+    <circle cx="100" cy="100" r="64" fill="none" stroke="#e9e4d6" stroke-width="1.5"/>
+    <text x="100" y="134" text-anchor="middle" font-family="Cinzel,Georgia,serif" font-weight="800" font-size="96" fill="#e9e4d6">A</text>
+  </svg>
+  <h1>Aswin</h1>
+  <p class="tag">First-year IT student. I build small things to find out how big things work.</p>
+  <p class="now">currently: <i>[what you are learning or building this month]</i></p>
+  <div class="btns"><a class="btn p" href="#about">Explore</a><a class="btn" href="#contact">Say hi</a></div>
+</section>
+
+<section id="about" class="about" data-sub="Scene one. The story so far">
+  <h2>The story so far</h2>
+  <p>I'm Aswin. I'm in my first year of B.Tech in Information Technology, and everything I know about code is still fresh enough that I remember not knowing it.</p>
+  <p>[Your moment: the first thing you ever made or broke on a computer, and what it felt like.]</p>
+  <p>[What you want from the next four years, in your own plain words.]</p>
+</section>
+
+<section id="skills" data-sub="Scene two. The cast">
+  <h2>The cast</h2>
+  <dl>
+    <div class="row"><dt>Comfortable</dt><dd>[Language or tool]<small>[One line on what you have actually done with it]</small></dd></div>
+    <div class="row"><dt>Comfortable</dt><dd>HTML and CSS<small>Enough to build this page by hand.</small></dd></div>
+    <div class="row"><dt>Getting there</dt><dd>[Language or tool]<small>[Where you are stuck or improving]</small></dd></div>
+    <div class="row"><dt>Learning</dt><dd>[Language or tool]<small>Started recently. Still reading the docs a lot.</small></dd></div>
+    <div class="row"><dt>Curious about</dt><dd>[A field you want to try]<small>Not started yet.</small></dd></div>
+  </dl>
+</section>
+
+<section id="journey" data-sub="Scene three. The reel">
+  <h2>The reel</h2>
+  <p style="margin-bottom:2rem;color:var(--dim)">Touch a frame. It leans toward you.</p>
+  <div class="deck">
+    <article class="card a"><i class="sp"></i><h3>Made</h3><ul><li>[Project name]: [what it does]</li><li>[Another project, even a tiny one]</li><li>This page</li></ul></article>
+    <article class="card k"><i class="sp"></i><h3>Learning</h3><ul><li>[Course, book or tutorial]</li><li>[A concept that finally clicked]</li></ul></article>
+    <article class="card d"><i class="sp"></i><h3>Next production</h3><ul><li>[Something you want to build by the end of year one]</li><li>[A bigger idea for later]</li></ul></article>
+  </div>
+</section>
+
+<section id="beyond" data-sub="Scene four. Off camera">
+  <h2>Off camera</h2>
+  <div class="facts">
+    <p>[A hobby, and why you like it]</p>
+    <p>[A fun fact people usually don't guess]</p>
+    <p>[What you do when the laptop is shut]</p>
+    <p>[A film, song or game you can talk about for an hour]</p>
+  </div>
+</section>
+
+<section id="contact" data-sub="Final scene. Say hi">
+  <h2>Say hi</h2>
+  <a class="mail" href="mailto:you@example.com">[you@example.com]</a>
+  <div class="links"><a href="https://www.linkedin.com/in/your-handle">LinkedIn</a><a href="https://github.com/your-handle">GitHub</a></div>
+  <p class="end">Directed by Aswin. No sequels planned, many drafts.</p>
+</section>
+</main>
+
+<div id="egg" role="dialog" aria-label="Easter egg"><div>3<small>Tap anywhere to roll the film again.</small></div></div>
+
+<script>
+(function(){
+var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var body=document.body,op=document.getElementById('open'),tp=document.getElementById('typed'),
+text="Every project starts as one line.",done=false,timers=[];
+function end(){if(done)return;done=true;timers.forEach(clearTimeout);op.classList.add('gone');
+body.classList.remove('intro');document.getElementById('skip').remove();setTimeout(function(){op.remove()},600)}
+document.getElementById('skip').onclick=end;
+if(rm){tp.textContent=text;timers.push(setTimeout(end,900))}
+else{var i=0;(function t(){if(done)return;tp.textContent=text.slice(0,++i);
+if(i<text.length)timers.push(setTimeout(t,36+Math.random()*30));
+else{timers.push(setTimeout(function(){op.classList.add('fade')},500));timers.push(setTimeout(end,1100))}})()}
+/* scene subtitles in the bottom bar */
+var sub=document.getElementById('sub');
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var s=e.target.dataset.sub;
+sub.style.opacity=0;setTimeout(function(){sub.textContent=s;sub.style.opacity=1},rm?0:250)}})},{rootMargin:'-45% 0px -45% 0px'});
+document.querySelectorAll('section').forEach(function(s){io.observe(s)});
+/* cards tilt toward the finger */
+if(!rm)document.querySelectorAll('.card').forEach(function(c){
+function mv(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+c.classList.add('on');c.style.transform='rotateY('+(x*22)+'deg) rotateX('+(-y*22)+'deg) translateZ(14px)'}
+function lv(){c.classList.remove('on');c.style.transform=''}
+c.addEventListener('pointermove',mv);c.addEventListener('pointerdown',mv);
+c.addEventListener('pointerleave',lv);c.addEventListener('pointerup',lv);c.addEventListener('pointercancel',lv)});
+/* easter egg: tap the monogram 5 times, or type "action" */
+var egg=document.getElementById('egg'),n=0,tm,buf='';
+function roll(){var k=egg.firstElementChild,c=3;egg.classList.add('on');
+(function step(){k.firstChild.nodeValue=c;if(c--<=0){egg.classList.remove('on');return}setTimeout(step,rm?900:700)})()}
+document.getElementById('mono').addEventListener('click',function(){clearTimeout(tm);if(++n>=5){n=0;roll()}tm=setTimeout(function(){n=0},1200)});
+egg.addEventListener('click',function(){egg.classList.remove('on')});
+addEventListener('keydown',function(e){buf=(buf+e.key).slice(-6).toLowerCase();if(buf==='action')roll()});
+})();
+</script>
+</body>
+</html>
